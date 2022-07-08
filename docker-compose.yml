@@ -29,15 +29,8 @@ services:
     build:
       context: .
       target: symfony_caddy
-    depends_on:service
-###> symfony/mercure-bundle ###
-###< symfony/mercure-bundle ###
-
-volumes:
-  php_socket:
-  caddy_data:
-  caddy_config:
-    - php
+    depends_on:
+      - php
     environment:
       SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeMe!}
@@ -61,6 +54,13 @@ volumes:
         published: ${HTTP3_PORT:-443}
         protocol: udp
 
-# Mercure is installed as a Caddy module, prevent the Flex recipe from installing another 
+# Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
+###> symfony/mercure-bundle ###
+###< symfony/mercure-bundle ###
+
+volumes:
+  php_socket:
+  caddy_data:
+  caddy_config:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
